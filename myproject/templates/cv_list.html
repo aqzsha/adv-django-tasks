@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>CV List</title>
+  </head>
+  <body>
+    <h1>CV List</h1>
+    {% for cv in cvs %}
+    <h2>{{ cv.name }}</h2>
+    <p>Email: {{ cv.email }}</p>
+    {% if cv.profile_picture %}
+    <img
+      src="{{ cv.profile_picture.url }}"
+      alt="Profile Picture"
+      width="150"
+    />
+    {% else %}
+    <p>No profile picture uploaded.</p>
+    {% endif %}
+    <form
+      method="post"
+      action="{% url 'share_cv_email' cv.id %}"
+    >
+      {% csrf_token %}
+      <input
+        type="email"
+        name="email"
+        placeholder="Recipient Email"
+        required
+      />
+      <button type="submit">Share via Email</button>
+    </form>
+    {% endfor %}
+  </body>
+</html>
