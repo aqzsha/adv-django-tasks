@@ -1,0 +1,9 @@
+<form method="get">
+    {% csrf_token %}
+    {{ filter.form.as_p }}
+    <button type="submit">Filter</button>
+</form>
+
+{% for expense in filter.qs %}
+    <p>{{ expense.description }} - {{ expense.amount }} - {{ expense.date }}</p>
+{% endfor %}
